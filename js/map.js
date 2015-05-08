@@ -31,10 +31,11 @@ var popup = new L.Popup({ autoPan: false });
   // get color depending on cluster
   function getColor(d) {
 
-      return d > 1.5 ? '#990033' :
+      return d > 1.5 ? '#CCFF66' :
           d > 0.5  ? '#006666' :
-          d > -2  ? '#CCFF66' :
+          d > -2  ? '#990033' :
           '#EBEBE6';
+
   }
 
   // setting on click
