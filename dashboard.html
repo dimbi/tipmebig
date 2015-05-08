@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Big Data TipMeBig Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/keen-dashboards.css" />
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+  <!-- Bootstrap core CSS -->
+  <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./bootstrap/css/carousel.css" rel="stylesheet">
+</head>
+
+<!-- HEADER -->
+<body class="application">
+    <div class="navbar-wrapper">
+      <div class="container">
+
+        <nav class="navbar navbar-inverse navbar-static-top"> 
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">TipMeBig!</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="interactive_maps.html">Interactive Maps</a></li>
+
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+
+  <!-- TOP LEFT HORIZONTAL DATE -->
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-sm-8">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            K-means clustering algorithm applied on features: male rate, white people rate, median income and public transportation usage rate.
+          </div>
+              <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/threefactors-ggplot.png" data-holder-rendered="true">
+          <div class="chart-notes">
+            This is a sample text region to describe this chart.
+          </div>
+        </div>
+      </div>
+
+
+    <!-- TOP LEFT -->
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Individual statistics test for each feature: male rate, white people rate, median income and public transportation usage rate.
+          </div>
+              <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/income-2.png" data-holder-rendered="true">
+              <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/PublicTrans-2.png" data-holder-rendered="true">
+              <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/White-2.png" data-holder-rendered="true">
+
+          <div class="chart-notes">
+            <!-- Notes go down here -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cluster 0 timeseries plot (red)
+          </div>
+            <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/cluster0trip.png" data-holder-rendered="true">
+          <div class="chart-notes">
+              <!--Notes go down here-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cluster 1 timeseries plot (green)
+          </div>          
+            <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/cluster1trip.png" data-holder-rendered="true">
+          <div class="chart-notes">
+              <!--Notes go down here-->
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="chart-wrapper">
+          <div class="chart-title">
+            Cluster 2 timeseries plot (blue)
+          </div>
+            <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/cluster2trip.png" data-holder-rendered="true">
+          <div class="chart-notes">
+              <!--Notes go down here-->
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <hr>
+
+  </div>
+
+  <script type="text/javascript" src="assets/lib/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="assets/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="assets/lib/holderjs/holder.js"></script>
+  <script>
+    Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
+  </script>
+
+  <script type="text/javascript" src="assets/lib/keen-js/dist/keen.min.js"></script>
+  <script type="text/javascript" src="assets/js/meta.js"></script>
+  <script type="text/javascript" src="keen.dashboard.js"></script>
+  <script src="./carousel/js/bootstrap.min.js"></script>
+  <script src="./carousel/js/holder.js"></script>
+  <script src="./carousel/js/ie10-viewport-bug-workaround.js"></script>
+
+
+</body>
+</html>
