@@ -367,8 +367,6 @@ var popup = new L.Popup({ autoPan: false });
     width = 280 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
 
-	var parseDate = d3.time.format("%d-%b-%y").parse;
-
 	var x = d3.time.scale()
 	    .range([0, width]);
 
@@ -386,9 +384,9 @@ var popup = new L.Popup({ autoPan: false });
 		.ticks(4);
 
 	var area = d3.svg.area()
-	    .x(function(d) { return x(d.date); })
+	    .x(function(d) { return x(d.timeunit); })
 	    .y0(height)
-	    .y1(function(d) { return y(d.close); });
+	    .y1(function(d) { return y(d.cluster0); });
 
 	var svg = d3.select(".legendBox").append("svg")
 	    .attr("width", width + margin.left + margin.right)
@@ -405,9 +403,14 @@ var popup = new L.Popup({ autoPan: false });
 	  //    {date:parseDate("25-Apr-12"),close:99.00}
 	  //];
 
-	  d3.tsv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
-		  data.forEach(function(d) {
-		  });
+	  d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
+	  	data.forEach(function(d) {
+		    d.timeunit = parseInt(d.timeunit);
+		    d.cluster0 = parseFloat(d.cluster0);
+	  	});
+
+	  console.log(data);
+	
 
 	  x.domain(d3.extent(data, function(d) { return d.timeunit; }));
 	  y.domain([0, d3.max(data, function(d) { return d.cluster0; })]);
@@ -500,6 +503,8 @@ var popup = new L.Popup({ autoPan: false });
 	      {date:parseDate("26-Apr-12"),close:89.70},
 	      {date:parseDate("25-Apr-12"),close:99.00}
 	  ];
+
+  	  console.log(data);
 
 	  x.domain(d3.extent(data, function(d) { return d.date; }));
 	  y.domain([0, d3.max(data, function(d) { return d.close; })]);
