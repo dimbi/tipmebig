@@ -362,7 +362,7 @@ var popup = new L.Popup({ autoPan: false });
 
 (function(d3) {
 
-	var margin = {top: 20, right: 20, bottom: 40, left: 30},
+	var margin = {top: 20, right: 30, bottom: 40, left: 30},
 	    width = 460 - margin.left - margin.right,
 	    height = 180 - margin.top - margin.bottom;
 
@@ -392,7 +392,9 @@ var popup = new L.Popup({ autoPan: false });
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	    .style("opacity", 1);
+
 
 	d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
 	  var timeUnit = d3.keys(data[0]).filter(function(key) { return key !== "timeunit"; });
@@ -405,7 +407,7 @@ var popup = new L.Popup({ autoPan: false });
 
 	  x0.domain(data.map(function(d) { return d.timeunit; }));
 	  x1.domain(timeUnit).rangeRoundBands([0, x0.rangeBand()]);
-	  y.domain([0, d3.max(data, function(d) { return d3.max(d.clusters, function(d) { return d.value; }); })]);
+	  y.domain([17, 25]);
 
 	svg.append("g")
 	      .attr("class", "y axis")
@@ -417,7 +419,7 @@ var popup = new L.Popup({ autoPan: false });
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Tip ($)")
+	      .text("Tip (%)")
 	      .style("stroke","none")
 	      .style("fill","grey");
 
@@ -462,7 +464,7 @@ var popup = new L.Popup({ autoPan: false });
 
 (function(d3) {
 
-	var margin = {top: 20, right: 20, bottom: 40, left: 30},
+	var margin = {top: 20, right: 30, bottom: 40, left: 30},
 	    width = 460 - margin.left - margin.right,
 	    height = 180 - margin.top - margin.bottom;
 
@@ -492,7 +494,8 @@ var popup = new L.Popup({ autoPan: false });
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+	    .style("opacity", 1);
 
 	d3.csv("http://dimbi.github.io/tipmebig/data/workday.csv", function(error, data) {
 	  var timeUnit = d3.keys(data[0]).filter(function(key) { return key !== "timeunit"; });
@@ -505,7 +508,7 @@ var popup = new L.Popup({ autoPan: false });
 
 	  x0.domain(data.map(function(d) { return d.timeunit; }));
 	  x1.domain(timeUnit).rangeRoundBands([0, x0.rangeBand()]);
-	  y.domain([0, d3.max(data, function(d) { return d3.max(d.clusters, function(d) { return d.value; }); })]);
+  	  y.domain([17, 25]);
 
 	svg.append("g")
 	      .attr("class", "y axis")
@@ -517,7 +520,7 @@ var popup = new L.Popup({ autoPan: false });
 	      .attr("y", 6)
 	      .attr("dy", ".71em")
 	      .style("text-anchor", "end")
-	      .text("Tip ($)")
+	      .text("Tip (%)")
 	      .style("stroke","none")
 	      .style("fill","grey");
 
