@@ -457,6 +457,7 @@ var popup = new L.Popup({ autoPan: false });
 //area chart Cluster 1
 //------------
 
+/*
 	var svg = d3.select(map.getPanes().overlayPane).append("svg"),
 	g = svg.append("g").attr("class", "leaflet-zoom-hide");
 
@@ -643,6 +644,8 @@ var popup = new L.Popup({ autoPan: false });
         .style("fill","grey");    
 
 	  });
+
+*/
 //end area chart
 
 
