@@ -394,7 +394,6 @@ var popup = new L.Popup({ autoPan: false });
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
 	  //var data = [
 	  //    {date:parseDate("1-May-12"),close:58.13},
 	  //    {date:parseDate("30-Apr-12"),close:53.98},
@@ -405,13 +404,12 @@ var popup = new L.Popup({ autoPan: false });
 
 	  d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
 	  	data.forEach(function(d) {
-		    d.timeunit = parseInt(d.timeunit);
-		    d.cluster0 = parseFloat(d.cluster0);
+		    d.timeunit = +d.timeunit;
+		    d.cluster0 = +d.cluster0;
 	  	});
 
 	  console.log(data);
 	
-
 	  x.domain(d3.extent(data, function(d) { return d.timeunit; }));
 	  y.domain([0, d3.max(data, function(d) { return d.cluster0; })]);
 
@@ -448,7 +446,7 @@ var popup = new L.Popup({ autoPan: false });
         .style("font-size", "16px") 
         .text("Cluster 0")
         .style("stroke","grey")
-        .style("fill","grey");
+        .style("fill","grey");    
 
 	  });
 
@@ -465,8 +463,6 @@ var popup = new L.Popup({ autoPan: false });
 	var margin = {top: 30, right: 30, bottom: 30, left: 30},
     width = 280 - margin.left - margin.right,
     height = 120 - margin.top - margin.bottom;
-
-	var parseDate = d3.time.format("%d-%b-%y").parse;
 
 	var x = d3.time.scale()
 	    .range([0, width]);
@@ -485,9 +481,9 @@ var popup = new L.Popup({ autoPan: false });
 		.ticks(4);
 
 	var area = d3.svg.area()
-	    .x(function(d) { return x(d.date); })
+	    .x(function(d) { return x(d.timeunit); })
 	    .y0(height)
-	    .y1(function(d) { return y(d.close); });
+	    .y1(function(d) { return y(d.cluster1); });
 
 	var svg = d3.select(".legendBox").append("svg")
 	    .attr("width", width + margin.left + margin.right)
@@ -495,19 +491,24 @@ var popup = new L.Popup({ autoPan: false });
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+	  //var data = [
+	  //    {date:parseDate("1-May-12"),close:58.13},
+	  //    {date:parseDate("30-Apr-12"),close:53.98},
+	  //    {date:parseDate("27-Apr-12"),close:67.00},
+	  //    {date:parseDate("26-Apr-12"),close:89.70},
+	  //    {date:parseDate("25-Apr-12"),close:99.00}
+	  //];
 
-	  var data = [
-	      {date:parseDate("1-May-12"),close:58.13},
-	      {date:parseDate("30-Apr-12"),close:53.98},
-	      {date:parseDate("27-Apr-12"),close:67.00},
-	      {date:parseDate("26-Apr-12"),close:89.70},
-	      {date:parseDate("25-Apr-12"),close:99.00}
-	  ];
+	  d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
+	  	data.forEach(function(d) {
+		    d.timeunit = +d.timeunit;
+		    d.cluster1 = +d.cluster1;
+	  	});
 
-  	  console.log(data);
-
-	  x.domain(d3.extent(data, function(d) { return d.date; }));
-	  y.domain([0, d3.max(data, function(d) { return d.close; })]);
+	  console.log(data);
+	
+	  x.domain(d3.extent(data, function(d) { return d.timeunit; }));
+	  y.domain([0, d3.max(data, function(d) { return d.cluster1; })]);
 
 	  svg.append("path")
 	      .datum(data)
@@ -534,7 +535,7 @@ var popup = new L.Popup({ autoPan: false });
 	      .text("Price ($)")
 	      .style("stroke","grey")
           .style("fill","grey");
-          
+
       svg.append("text")
         .attr("x", (width / 2))             
         .attr("y", 0 - (margin.top / 2))
@@ -542,7 +543,9 @@ var popup = new L.Popup({ autoPan: false });
         .style("font-size", "16px") 
         .text("Cluster 1")
         .style("stroke","grey")
-        .style("fill","grey");
+        .style("fill","grey");    
+
+	  });
 
 //end area chart
 
@@ -575,9 +578,9 @@ var popup = new L.Popup({ autoPan: false });
 		.ticks(4);
 
 	var area = d3.svg.area()
-	    .x(function(d) { return x(d.date); })
+	    .x(function(d) { return x(d.timeunit); })
 	    .y0(height)
-	    .y1(function(d) { return y(d.close); });
+	    .y1(function(d) { return y(d.cluster2); });
 
 	var svg = d3.select(".legendBox").append("svg")
 	    .attr("width", width + margin.left + margin.right)
@@ -585,17 +588,24 @@ var popup = new L.Popup({ autoPan: false });
 	  .append("g")
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+	  //var data = [
+	  //    {date:parseDate("1-May-12"),close:58.13},
+	  //    {date:parseDate("30-Apr-12"),close:53.98},
+	  //    {date:parseDate("27-Apr-12"),close:67.00},
+	  //    {date:parseDate("26-Apr-12"),close:89.70},
+	  //    {date:parseDate("25-Apr-12"),close:99.00}
+	  //];
 
-	  var data = [
-	      {date:parseDate("1-May-12"),close:58.13},
-	      {date:parseDate("30-Apr-12"),close:53.98},
-	      {date:parseDate("27-Apr-12"),close:67.00},
-	      {date:parseDate("26-Apr-12"),close:89.70},
-	      {date:parseDate("25-Apr-12"),close:99.00}
-	  ];
+	  d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
+	  	data.forEach(function(d) {
+		    d.timeunit = +d.timeunit;
+		    d.cluster2 = +d.cluster2;
+	  	});
 
-	  x.domain(d3.extent(data, function(d) { return d.date; }));
-	  y.domain([0, d3.max(data, function(d) { return d.close; })]);
+	  console.log(data);
+	
+	  x.domain(d3.extent(data, function(d) { return d.timeunit; }));
+	  y.domain([0, d3.max(data, function(d) { return d.cluster2; })]);
 
 	  svg.append("path")
 	      .datum(data)
@@ -622,7 +632,7 @@ var popup = new L.Popup({ autoPan: false });
 	      .text("Price ($)")
 	      .style("stroke","grey")
           .style("fill","grey");
-          
+
       svg.append("text")
         .attr("x", (width / 2))             
         .attr("y", 0 - (margin.top / 2))
@@ -630,8 +640,9 @@ var popup = new L.Popup({ autoPan: false });
         .style("font-size", "16px") 
         .text("Cluster 2")
         .style("stroke","grey")
-        .style("fill","grey");
+        .style("fill","grey");    
 
+	  });
 //end area chart
 
 
