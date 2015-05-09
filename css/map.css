@@ -85,7 +85,16 @@ color: #777;
   top: 80px;
   left: 15px;
   width: 460px;
-  height:220px;
+  height:180px;
+
+} 
+
+.legendBox2 {
+  position: absolute;
+  top: 270px;
+  left: 15px;
+  width: 460px;
+  height:180px;
 
 } 
 
@@ -117,6 +126,12 @@ form {
   fill-opacity: 0.5;
 }
 
+.bar {
+  fill: steelblue;
+}
 
+.x.axis path {
+  display: none;
+}
 
 
