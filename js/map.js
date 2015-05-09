@@ -405,7 +405,7 @@ var popup = new L.Popup({ autoPan: false });
 	  //    {date:parseDate("25-Apr-12"),close:99.00}
 	  //];
 
-	  d3.tsv("data/weekend.csv", function(error, data) {
+	  d3.tsv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
 		  data.forEach(function(d) {
 		  });
 
