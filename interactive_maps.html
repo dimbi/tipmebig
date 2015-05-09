@@ -30,6 +30,7 @@
     <!-- Custom styles for this template -->
     <link href="./bootstrap/css/carousel.css" rel="stylesheet">
   </head>
+
 <!-- NAVBAR
 ================================================== -->
   <body>
@@ -52,18 +53,34 @@
                 <li class="active"><a href="index.html">Home</a></li>
                 <li><a href="dashboard.html">Dashboard</a></li>
                 <li><a href="interactive_maps.html">Interactive Maps</a></li>
-
               </ul>
             </div>
           </div>
         </nav>
+
+        <!--<div class="row featurette">
+           <div class=" col-xs-6 col-sm-3 ">-->
+        <!--
+        </div>
       </div>
+        -->
+   
+
+    </div>
+      <!--
+        <div class="footer-images">
+                <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/cluster0trip-black.png" data-holder-rendered="true">
+                <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/cluster1trip-black.png" data-holder-rendered="true">
+                <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/cluster2trip-black.png" data-holder-rendered="true">
+        </div>
+      -->
+  </div>
+    <div id="map-canvas">
     </div>
 
-    </div><!-- /.container -->
+  <div class="legendBox box" style = "display : block;">
+  </div>
 
-
-    <div id="map-canvas"></div>
 
     <div id="title-panel">
       Big Data
@@ -92,7 +109,6 @@
           <h5>Percentage of public transportation user</h5>
             <div id="trans_piechart" style="min-width: 310px; height: 300px; max-width: 600px; margin: 0 auto"></div>
 
-
     </nav>
 
     <!--
@@ -107,6 +123,9 @@
     <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
     <script type="text/javascript" src="geojson/PostalBoundaryNYC_cluster.js"> </script>
     <script type="text/javascript" src="js/map.js"> </script>
+
+
+
 
     <!-- Bootstrap core JavaScript
     ================================================== -->

@@ -40,3 +40,10 @@ html, body{
 	-webkit-transition: 0.25s linear;
 	overflow: hidden;
 }
+
+ .footer-images img{
+        vertical-align:bottom;
+ 		padding-left : .5%;
+		padding-right : 70%;
+        border:0;
+        }

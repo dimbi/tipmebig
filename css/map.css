@@ -58,3 +58,59 @@ color: #777;
   color: white;
 }
 
+.areaChart {
+    position: absolute;
+    bottom: 0;
+    background: #000;
+}
+
+.box {
+    background:rgba(0, 0, 0, 0.61);
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    display:none;
+}
+
+.areaChartBox {
+    position: absolute;
+    bottom: 60px;
+    right:500;
+    left:140px;
+    height:140px;
+}
+
+.legendBox {
+  position: absolute;
+  top: 80px;
+  left: 15px;
+  width: 300px;
+  height:400px;
+
+} 
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.area0 {
+  fill: #990033;
+  fill-opacity: 0.5;
+}
+
+.area1 {
+  fill: #006666;
+  fill-opacity: 0.5;
+}
+
+.area2 {
+  fill: #CCFF66;
+  fill-opacity: 0.5;
+}
+
+
+
+
