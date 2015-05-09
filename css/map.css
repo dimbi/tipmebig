@@ -84,8 +84,8 @@ color: #777;
   position: absolute;
   top: 80px;
   left: 15px;
-  width: 300px;
-  height:400px;
+  width: 460px;
+  height:220px;
 
 } 
 
@@ -94,6 +94,12 @@ color: #777;
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
+}
+
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
 .area0 {
