@@ -65,7 +65,7 @@ color: #777;
 }
 
 .box {
-    background:rgba(0, 0, 0, 0.21);
+    background:rgba(0, 0, 0, 0.2);
     padding: 10px;
     box-sizing: border-box;
     border-radius: 6px;
@@ -75,7 +75,7 @@ color: #777;
 .areaChartBox {
     position: absolute;
     bottom: 60px;
-    right:500;
+    right:310px;
     left:140px;
     height:140px;
 }
@@ -98,6 +98,15 @@ color: #777;
 
 } 
 
+.legendBoxLarge {
+  position: absolute;
+  top: 80px;
+  left: 15px;
+  width: 460px;
+  height:400px;
+} 
+
+
 .axis path,
 .axis line {
   fill: none;
@@ -111,19 +120,24 @@ form {
   top: 10px;
 }
 
+.areagrey {
+  fill : lightgrey;
+  fill-opacity: 1;
+}
+
 .area0 {
-  fill: #990033;
-  fill-opacity: 0.5;
+  fill: gold;
+  fill-opacity: 1;
 }
 
 .area1 {
-  fill: #006666;
-  fill-opacity: 0.5;
+  fill: tomato;
+  fill-opacity: 1;
 }
 
 .area2 {
-  fill: #CCFF66;
-  fill-opacity: 0.5;
+  fill: lightgreen;
+  fill-opacity: 1;
 }
 
 .bar {

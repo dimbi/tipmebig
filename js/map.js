@@ -23,7 +23,7 @@ var popup = new L.Popup({ autoPan: false });
           weight: 2,
           opacity: 0.1,
           color: 'black',
-          fillOpacity: 0.7,
+          fillOpacity: 0.4,
           fillColor: getColor(feature.properties.cluster)
       };
   }
@@ -31,10 +31,10 @@ var popup = new L.Popup({ autoPan: false });
   // get color depending on cluster
   function getColor(d) {
 
-      return d > 1.5 ? '#CCFF66' :
-          d > 0.5  ? '#006666' :
-          d > -2  ? '#990033' :
-          '#EBEBE6';
+      return d > 1.5 ? 'lightgreen' :
+          d > 0.5  ? 'tomato' :
+          d > -2  ? 'gold' :
+          'lightgrey';
 
   }
 
@@ -98,11 +98,14 @@ var popup = new L.Popup({ autoPan: false });
 	    d3.select("#male_piechart").selectAll("h5").remove();
 	    d3.select("#trans_piechart").selectAll("svg").remove();
 	    d3.select("#trans_piechart").selectAll("h5").remove();
+	    d3.select(".areaChartBox").selectAll("svg").remove();
+	    d3.select(".areaChartBox").selectAll("h2").remove();
 
 
 	    var layer = e.target;
 	    var zipcode = layer.feature.properties.POSTAL;        
 	    var tipperc = layer.feature.properties.tip;
+
 	
 	    //bar chart for tip percentage and median income
         var data = [];
@@ -138,6 +141,7 @@ var popup = new L.Popup({ autoPan: false });
         var legendSpacing = 4;                                    // NEW
        	var color = d3.scale.ordinal()
 	    	.range(["#24B39F","#9C9C9C"]);
+
         var svg = d3.select('#male_piechart')
           .append('svg')
           .attr('width', width)
@@ -251,9 +255,6 @@ var popup = new L.Popup({ autoPan: false });
           .text(function(d) { return d; });                       // NEW
       })(window.d3);
 
-
-
-
       	//pie chart transport rate
 	    // -------
     	(function(d3) {
@@ -320,6 +321,13 @@ var popup = new L.Popup({ autoPan: false });
       })(window.d3);
 
 
+      // Area chart plot
+      	 var cluster_type = layer.feature.properties.cluster;
+	     //drawAreaChartWeekday(cluster_type);
+ 	     //drawAreaChartWeekend(cluster_type);
+ 	     drawAreaChartBoth(cluster_type);
+
+
 
 	    //get bus route color from data/busroute_color.csv
 	    d3.select("#myNavmenu").select("h1").text("Zip Code : " + zipcode)
@@ -356,10 +364,474 @@ var popup = new L.Popup({ autoPan: false });
   }
 
 
+function drawAreaChartBoth(cluster_type) {
 
+
+	 d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data_weekend) {
+	  	data_weekend.forEach(function(d) {
+		    d.timeunit = +d.timeunit;
+		    d.cluster0 = +d.cluster0;
+		    d.cluster1 = +d.cluster1;
+		    d.cluster2 = +d.cluster2;
+	  	});
+
+		if (cluster_type == 0){
+		  	var area_type = "area0";
+		  	var d_cluster = data_weekend.cluster0;
+		  	var legend_title = "Cluster 0";
+		  }
+
+		else if (cluster_type == 1){
+		  	var area_type = "area1";
+		  	var d_cluster = data_weekend.cluster1;
+		  	var legend_title = "Cluster 1";
+		  }
+
+		else if (cluster_type == 2){
+		  	var area_type = "area2";
+		  	var d_cluster = data_weekend.cluster2;
+		  	var legend_title = "Cluster 2";
+		  }
+
+
+	var margin = {top: 30, right: 30, bottom: 40, left: 30},
+	    width = 820 - margin.left - margin.right,
+	    height = 140 - margin.top - margin.bottom;
+
+	var x = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+	    var x0 = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+		.ticks(4);
+
+	var area_weekend = d3.svg.area()
+	    .x(function(d) { return x(d.timeunit); })
+	    .y0(height)
+//	    .y1(function(d) { return y(d_cluster); });
+	    .y1(function(d) { 
+		    if (cluster_type == 0){
+		    	return y(d.cluster0); 
+			  }
+			else if (cluster_type == 1){
+	  	    	return y(d.cluster1); 
+			  }
+
+			else if (cluster_type == 2){
+		    	return y(d.cluster2); 
+			  }
+	    });
+
+	var svg = d3.select(".areaChartBox").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  		 .style("opacity", 1);
+
+	  console.log(data_weekend);
+	
+	  //x.domain(d3.extent(data, function(d) { return d.timeunit; }));
+  	  x.domain(data_weekend.map(function(d) { return d.timeunit; }));
+	  // y.domain([0, d3.max(data, function(d) { return d.cluster0; })]);
+	 
+    if (cluster_type == 2){
+  	  y.domain([18, 50]);
+	}
+    else {
+      y.domain([18, 22]);
+  	}		
+
+	  svg.append("path")
+	      .datum(data_weekend)
+	      .attr("class", area_type)
+	      .attr("d", area_weekend)
+		  .style("opacity", 1);
+
+	  svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis)
+  	      .style("stroke","grey")
+          .style("fill","grey")
+		  .style("opacity", 1);
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+  	      .style("stroke","grey")
+          .style("fill","grey")
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Tip (%)")
+	      .style("stroke","grey")
+          .style("fill","grey")
+		  .style("opacity", 1);
+
+      svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text(legend_title)
+        .style("stroke","none")
+        .style("fill","lightgrey")
+		  .style("opacity", 1); 
+
+
+		 // legend key
+		  var legendKey = ["Weekdays" , "Weekends"]
+   	
+	   		if (cluster_type == 0){
+			  var color = d3.scale.ordinal()
+		    	.range(["gold", "lightgrey"]);
+			  }
+
+			else if (cluster_type == 1){
+			  var color = d3.scale.ordinal()
+		    	.range(["tomato", "lightgrey"]);
+			  }
+
+			else if (cluster_type == 2){
+			  var color = d3.scale.ordinal()
+		    	.range(["lightgreen", "lightgrey"]);
+			  }
+	
+		  var legend = svg.selectAll(".legend")
+		      .data(legendKey.slice().reverse())
+		    .enter().append("g")
+		      .attr("class", "legend")
+		      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+		  legend.append("rect")
+		      .attr("x", width - 30)
+		      .attr("y", -30)
+		      .attr("width", 18)
+		      .attr("height", 18)
+		      .style("fill", color);
+
+		  legend.append("text")
+		      .attr("x", width - 34)
+		      .attr("y", -22)
+		      .attr("dy", ".35em")
+		      .style("text-anchor", "end")
+		      .style("fill","grey")
+		   	  .style("opacity", 1)
+		      .text(function(d) { return d; });
+
+
+		//---------------------WeekDay data starts
+
+		d3.csv("http://dimbi.github.io/tipmebig/data/workday.csv", function(error, data_weekday) {
+	  	data_weekday.forEach(function(d) {
+		    d.timeunit = +d.timeunit;
+		    d.cluster0 = +d.cluster0;
+		    d.cluster1 = +d.cluster1;
+		    d.cluster2 = +d.cluster2;
+	  	});
+
+	  	var area_weekday = d3.svg.area()
+	    .x(function(d) { return x(d.timeunit); })
+	    .y0(height)
+	    .y1(function(d) { 
+		    if (cluster_type == 0){
+		    	return y(d.cluster0); 
+			  }
+			else if (cluster_type == 1){
+	  	    	return y(d.cluster1); 
+			  }
+
+			else if (cluster_type == 2){
+		    	return y(d.cluster2); 
+			  }
+	    });
+
+		svg.append("path")
+	      .datum(data_weekday)
+	      .attr("class", "areagrey")
+	      .attr("d", area_weekday)
+		  .style("opacity", 0.5);
+	    });
+
+		//---------------------WeekDay data ends  
+
+	});
+
+}
+
+
+
+
+/*
+
+function drawAreaChartWeekend(cluster_type) {
+
+
+	 d3.csv("http://dimbi.github.io/tipmebig/data/weekend.csv", function(error, data) {
+	  	data.forEach(function(d) {
+		    d.timeunit = +d.timeunit;
+		    d.cluster0 = +d.cluster0;
+		    d.cluster1 = +d.cluster1;
+		    d.cluster2 = +d.cluster2;
+	  	});
+
+		if (cluster_type == 0){
+		  	var area_type = "area0";
+		  	var d_cluster = data.cluster0;
+		  }
+
+		else if (cluster_type == 1){
+		  	var area_type = "area1";
+		  	var d_cluster = data.cluster1;
+		  }
+
+		else if (cluster_type == 2){
+		  	var area_type = "area2";
+		  	var d_cluster = data.cluster2;
+		  }
+
+
+	var margin = {top: 30, right: 30, bottom: 40, left: 30},
+	    width = 820 - margin.left - margin.right,
+	    height = 140 - margin.top - margin.bottom;
+
+	var x = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+	    var x0 = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+		.ticks(4);
+
+	var area = d3.svg.area()
+	    .x(function(d) { return x(d.timeunit); })
+	    .y0(height)
+//	    .y1(function(d) { return y(d_cluster); });
+	    .y1(function(d) { 
+		    if (cluster_type == 0){
+		    	return y(d.cluster0); 
+			  }
+			else if (cluster_type == 1){
+	  	    	return y(d.cluster1); 
+			  }
+
+			else if (cluster_type == 2){
+		    	return y(d.cluster2); 
+			  }
+	    });
+
+	var svg = d3.select(".areaChartBox").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  		 .style("opacity", 1);
+
+	  console.log(data);
+	
+	  //x.domain(d3.extent(data, function(d) { return d.timeunit; }));
+  	  x.domain(data.map(function(d) { return d.timeunit; }));
+	  // y.domain([0, d3.max(data, function(d) { return d.cluster0; })]);
+	  y.domain([18, 21]);
+
+
+	  svg.append("path")
+	      .datum(data)
+	      .attr("class", area_type)
+	      .attr("d", area)
+		  .style("opacity", 1);
+
+	  svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis)
+  	      .style("stroke","grey")
+          .style("fill","grey")
+		  .style("opacity", 1);
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+  	      .style("stroke","grey")
+          .style("fill","grey")
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Tip (%)")
+	      .style("stroke","grey")
+          .style("fill","grey")
+		  .style("opacity", 1);
+
+      svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("Cluster 0")
+        .style("stroke","grey")
+        .style("fill","grey")
+		  .style("opacity", 1);    
+
+	  });
+
+}
+
+function drawAreaChartWeekday(cluster_type) {
+
+
+	 d3.csv("http://dimbi.github.io/tipmebig/data/workday.csv", function(error, data) {
+	  	data.forEach(function(d) {
+		    d.timeunit = +d.timeunit;
+		    d.cluster0 = +d.cluster0;
+		    d.cluster1 = +d.cluster1;
+		    d.cluster2 = +d.cluster2;
+	  	});
+
+		if (cluster_type == 0){
+		  	var d_cluster = data.cluster0;
+		  }
+
+		else if (cluster_type == 1){
+		  	var d_cluster = data.cluster1;
+		  }
+
+		else if (cluster_type == 2){
+		  	var d_cluster = data.cluster2;
+		  }
+
+
+	var margin = {top: 30, right: 30, bottom: 40, left: 30},
+	    width = 820 - margin.left - margin.right,
+	    height = 140 - margin.top - margin.bottom;
+
+	var x = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+	    var x0 = d3.scale.ordinal()
+	    .rangeRoundBands([0, width], .1);
+
+
+	var y = d3.scale.linear()
+	    .range([height, 0]);
+
+	var xAxis = d3.svg.axis()
+	    .scale(x)
+	    .orient("bottom");
+
+	var yAxis = d3.svg.axis()
+	    .scale(y)
+	    .orient("left")
+		.ticks(4);
+
+	var area = d3.svg.area()
+	    .x(function(d) { return x(d.timeunit); })
+	    .y0(height)
+//	    .y1(function(d) { return y(d_cluster); });
+	    .y1(function(d) { 
+		    if (cluster_type == 0){
+		    	return y(d.cluster0); 
+			  }
+			else if (cluster_type == 1){
+	  	    	return y(d.cluster1); 
+			  }
+
+			else if (cluster_type == 2){
+		    	return y(d.cluster2); 
+			  }
+	    });
+
+	var svg = d3.select(".areaChartBox").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+  		 .style("opacity", 1);
+
+	  console.log(data);
+	
+	  //x.domain(d3.extent(data, function(d) { return d.timeunit; }));
+  	  x.domain(data.map(function(d) { return d.timeunit; }));
+	  // y.domain([0, d3.max(data, function(d) { return d.cluster0; })]);
+	  y.domain([18, 21]);
+
+
+	  svg.append("path")
+	      .datum(data)
+	      .attr("class", "areagrey")
+	      .attr("d", area)
+		  .style("opacity", 1);
+
+	  svg.append("g")
+	      .attr("class", "x axis")
+	      .attr("transform", "translate(0," + height + ")")
+	      .call(xAxis)
+  	      .style("stroke","grey")
+          .style("fill","grey")
+		  .style("opacity", 1);
+
+	  svg.append("g")
+	      .attr("class", "y axis")
+	      .call(yAxis)
+  	      .style("stroke","grey")
+          .style("fill","grey")
+	    .append("text")
+	      .attr("transform", "rotate(-90)")
+	      .attr("y", 6)
+	      .attr("dy", ".71em")
+	      .style("text-anchor", "end")
+	      .text("Tip (%)")
+	      .style("stroke","grey")
+          .style("fill","grey")
+		  .style("opacity", 1);
+
+      svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("Cluster 0")
+        .style("stroke","grey")
+        .style("fill","grey")
+		  .style("opacity", 1);    
+
+	  });
+
+}
+
+
+*/
 
 // #Group barchart 1 
 
+/*
 (function(d3) {
 
 	var margin = {top: 20, right: 30, bottom: 40, left: 30},
@@ -388,6 +860,7 @@ var popup = new L.Popup({ autoPan: false });
 	    .ticks(5)
 	    .tickFormat(d3.format(".2s"));
 
+	
 	var svg = d3.select(".legendBox").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
@@ -458,9 +931,11 @@ var popup = new L.Popup({ autoPan: false });
 
 })(window.d3);
 
-
+*/
 
 // #Group barchart 2 
+
+/*
 
 (function(d3) {
 
@@ -560,7 +1035,7 @@ var popup = new L.Popup({ autoPan: false });
 
 })(window.d3);
 
-
+*/
 
 /*
 (function(d3) {
