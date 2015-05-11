@@ -534,6 +534,40 @@ function drawAreaChartBoth(cluster_type) {
 		   	  .style("opacity", 1)
 		      .text(function(d) { return d; });
 
+		     d3.select(window).on('resize', resize); 
+			function resize() {
+				// update width
+				width = parseInt(d3.select('.areaChartBox').style('width'), 10);
+				width = width - margin.left - margin.right;
+
+				// reset x range
+				x.range([0, width]);
+
+				d3.select(areaChartBox.node().parentNode)
+			        .style('height', (y.rangeExtent()[1] + margin.top + margin.bottom) + 'px')
+			        .style('width', (width + margin.left + margin.right) + 'px');
+
+			    areaChartBox.selectAll('rect.background')
+			        .attr('width', width);
+
+			    areaChartBox.selectAll('rect.percent')
+			        .attr('width', function(d) { return x(d.percent); });
+
+			    // update median ticks
+			    var median = d3.median(areaChartBox.selectAll('.bar').data(), 
+			        function(d) { return d.percent; });
+
+			    areaChartBox.selectAll('line.median')
+			        .attr('x1', x(median))
+			        .attr('x2', x(median));
+
+
+			    // update axes
+			    areaChartBox.select('.x.axis.top').call(xAxis.orient('top'));
+			    areaChartBox.select('.x.axis.bottom').call(xAxis.orient('bottom'));
+
+			}
+
 
 		//---------------------WeekDay data starts
 
@@ -569,6 +603,8 @@ function drawAreaChartBoth(cluster_type) {
 	    });
 
 		//---------------------WeekDay data ends  
+
+		
 
 	});
 
