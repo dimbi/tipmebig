@@ -112,7 +112,7 @@
         <div class="col-lg-4">
           <img class="img-circle" src="./pic/hadoop.png" alt="Generic placeholder image" width="140" height="140">
           <h2>Hadoop.</h2>
-          <p> 1 year taxi data is about 50 GB . All the visualization and analytics in this website relies on hadoop platform for data aggregation and preparation - AWS EMR, hadoop, pig and python. </p>
+          <p> 1 year taxi data is about 50 GB. All the visualization and analytics in this website relies on hadoop platform for data aggregation and preparation - AWS EMR, hadoop, pig and python. </p>
           <p><a class="btn btn-default" href="http://wiki.apache.org/hadoop/" role="button">View details &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -139,10 +139,16 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">The most common <span class="text-muted">tip amounts?</span></h2>
-          <p class="lead">The most common tip amount is between 1~5 dollars. There are few counts of tip amount in the range of 20-100, but we treated these as outliers and didn’t include them in the plot. Preliminary analysis of the data, based on the one-day (2013-08-04 Sunday) taxi data shown that the trips paid by cash usually have 0 tip in record, we only used the trips paid by credit card.</p>
+          <p class="lead">
+            <font size="4">
+            The most common tip amount is between 1~3 dollars.<br>
+            The most frequently occurring tip amount  is $1 dollar, followed by $2 and $1.50.<br>
+            People tend to give dollars and half dollars for tips.<br>
+          </font>
+          </p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/histogram.png" data-holder-rendered="true"> 
+          <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/page1/tip_hist88.png" data-holder-rendered="true"> 
         </div>
       </div>
 
@@ -151,10 +157,15 @@
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
           <h2 class="featurette-heading"> Fluctuations in <span class="text-muted">higher fare amount. </span></h2>
-          <p class="lead">The tip percentage follows a predictable pattern when the fare is below 50, while it fluctuate severely when the fare rises above 50. Other parameters might be a driving factor for this fluctuations. But overall, people gave higher percentage of tip when the trip fare is low, especially below 20, while lower percentage of tip when the fare on the high end. </p>
+          <p class="lead">
+            <font size="4">
+            Overall trend: Greater the fare amount, smaller the tip percentage.<br>
+            Fare > 50, tip percentage fluctuates.<br>
+            Fare > 50, low tip percentage at fares ending in 0, 5.<br>
+          </font> </p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/tiprate.png" data-holder-rendered="true"> 
+          <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/page1/tips_perc_vs_fare88.png" data-holder-rendered="true"> 
         </div>
       </div>
 
@@ -163,13 +174,65 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">Weekdays VS <span class="text-muted">Weekends.</span></h2>
-           <p class="lead">Based on that finding we then take one year data and see the difference of tipping behavior against different time of day, and contrasted weekend and weekdays behavior. In Weekdays, people paid less tips at 7-10am but more tips at 4-7pm. The result may reflect that people tend to tip more when getting off work at workdays.</p>
+           <p class="lead">
+            <b>On workdays</b><br>
+            people tend to tip the most during off-work hours (4-7pm).<br>
+            People tend to tip the least during to-work hours (6-9am). <br>
+            <b>On weekend</b><br>
+            Tip percentage does not fluctuate as much as on workdays.<br>
+            It is slightly higher during night (8pm-5am) and morning (8-11am) than in the other period of the day. 
+            </p>
+           </p>
         </div>
         
           <div class="col-md-5">
             <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/timeseries.png" data-holder-rendered="true"> 
         </div>
       </div>
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading"> Tip percentage <span class="text-muted">by month. </span></h2>
+          <p class="lead">
+          Average tip percentage peaks December, January and August.<br>
+          Average tip percentage is lower in spring and fall seasons.<br>
+          Hypothesis: Perhaps people tend to pay more tips when the weather is harsh!<br>
+          </p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/page1/tips_perc_vs_month88.png" data-holder-rendered="true"> 
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Trip count <span class="text-muted">per month.</span></h2>
+           <p class="lead">
+            Trip number peaked in March, April, October and November.<br>
+            Trip number hit the bottom in August.<br>
+            Hypothesis: visitors came to the City in Spring and Fall; New Yorkers fled out in the summer.</p>
+        </div>
+        
+          <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/page1/trip_vs_month88.png" data-holder-rendered="true"> 
+        </div>
+      </div>
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading"> 20-22% <span class="text-muted">is the magic number. </span></h2>
+          <p class="lead">
+            The most common tip percentage ranges in 20-22%. <br>
+            It out counts the second common range, which is 22-24%, by almost three times.
+          </p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" alt="1000x1000" src="./statistics/page1/tip_perc_hist.png" data-holder-rendered="true"> 
+        </div>
+      </div>
+
 
       <!-- /END THE FEATURETTES -->
 
