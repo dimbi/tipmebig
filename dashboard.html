@@ -56,11 +56,25 @@
       <div class="col-sm-8">
         <div class="chart-wrapper">
           <div class="chart-title">
-            K-means clustering algorithm applied on features: male rate, white people rate, median income and public transportation usage rate.
+            <h2>Understanding people's tipping behavior based on the Census data:</h2>
           </div>
-              <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/threefactors-ggplot.png" data-holder-rendered="true">
+              <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/threefactors-new.png" data-holder-rendered="true">
           <div class="chart-notes">
-            This is a sample text region to describe this chart.
+          1) Three clusters:<br>
+             <li>Cluster 0: Uptown manhattan, Bronx and part of Brooklyn (near Queens)</li>
+             <li>Cluster 1: Downtown and Midtown manhattan, part of Brooklyn (near downtown manhattan)</li>
+             <li>Cluster 2: Staten island, uptown manhattan and part of Brooklyn (near Staten island)</li>
+             <br>
+
+          2) Taxi services and tipping behavior in three clusters:<br><br>
+             Taxi services:<br>
+             <li>Cluster 0: 1000 trips per hour on average; Most dense taxi time is midnight and early morning at weekends.</li>
+             <li>Cluster 1: 10000 trips per hour on average; Most dense taxi time is midnight at weekends, 8-9am and 9-8pm at workdays.</li>
+             <li>Cluster 2: 4 trips per hour on average; Most dense taxi time is midnight at weekends, 7-8am at workdays.</li><br>
+             Tipping behavior:<br>
+             <li>Generally, people in Cluster 2, rarely taking taxi though, tip more on average;</li>
+             <li>People in Cluster 1 show the most stable tipping behavior, almost all of them tip roughly at 20%;</li>
+             <li>People in Cluster 0 tip very differently, from 12% to 21%.</li>
           </div>
         </div>
       </div>
@@ -70,16 +84,33 @@
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Individual statistics test for each feature: male rate, white people rate, median income and public transportation usage rate.
+            <h2>Individual statistics test for each feature:<h2>
           </div>
-              <img class="featurette-image img-responsive center-block" alt="1000x1000" src="statistics/Income-2.png" data-holder-rendered="true">
-              <img class="featurette-image img-responsive center-block" alt="1000x1000" src="statistics/PublicTrans-2.png" data-holder-rendered="true">
-              <img class="featurette-image img-responsive center-block" alt="1000x1000" src="statistics/White-2.png" data-holder-rendered="true">
 
-          <div class="chart-notes">
-            <!-- Notes go down here -->
-          </div>
-        </div>
+              <img class="featurette-image img-responsive center-block" alt="1000x1000" src="statistics/Income-2.png" data-holder-rendered="true">
+              <div class="chart-notes"> 
+                <p>
+                  <li>Quadratic relation between average tip percentage and median household income
+                   those most rich people didn't tip more.</li>
+                </p>
+               </div>
+
+              <img class="featurette-image img-responsive center-block" alt="1000x1000" src="statistics/PublicTrans-2.png" data-holder-rendered="true">
+               <div class="chart-notes">              
+                <p>
+                   <li>Quadratic relation between average tip percentage and public transportation rate
+                   those people who rarely taking public transportation to work tend to tip more.</li>
+                </p>
+              </div>
+
+              <img class="featurette-image img-responsive center-block" alt="1000x1000" src="statistics/White-2.png" data-holder-rendered="true">
+              <div class="chart-notes">
+                <p>
+                  <li>Linear relation between average tip percentage and white rate
+                   average tip percentage is 16% in those area with rare white people; but higher to 20% where most people are white.</li>
+                </p>
+              </div>
+
       </div>
 
     </div>
@@ -90,7 +121,7 @@
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cluster 0 timeseries plot (red)
+            Cluster 0 timeseries plot (gold)
           </div>
             <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/cluster0trip.png" data-holder-rendered="true">
           <div class="chart-notes">
@@ -102,7 +133,7 @@
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cluster 1 timeseries plot (blue)
+            Cluster 1 timeseries plot (red)
           </div>          
             <img class="featurette-image img-responsive center-block" alt="1500x1500" src="./statistics/cluster1trip.png" data-holder-rendered="true">
           <div class="chart-notes">
