@@ -9,6 +9,8 @@ git clone https://github.com/dimbi/tipmebig.git
 ```
 The page should be up and running.
 
+Website can be viewed at : http://tinyurl.com/tipmebig
+
 Contributors
 ============
 1. Dimas Rinarso Putro
