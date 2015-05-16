@@ -1,4 +1,4 @@
-# tipmebig
+# tipmebig website
 Big Data Spring 2015 -- Final Project Website
 
 This website does not require any special webserver modules etc. Simply git clone into your webserver's DocumentRoot:
